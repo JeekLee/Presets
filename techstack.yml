@@ -1,0 +1,207 @@
+repo_name: JeekLee/Presets
+report_id: aabf4ab0bc4c7341330b099592718b52
+version: 0.1
+repo_type: Public
+timestamp: '2024-02-27T04:55:30+00:00'
+requested_by: JeekLee
+provider: github
+branch: master
+detected_tools_count: 16
+tools:
+- name: Java
+  description: A concurrent, class-based, object-oriented, language specifically designed
+    to have as few implementation dependencies as possible
+  website_url: https://www.java.com
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/JeekLee/Presets
+  detection_source: Repo Metadata
+- name: Spring Framework
+  description: An application framework and inversion of control container for the
+    Java platform
+  website_url: https://spring.io/projects/spring-framework
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/2006/spring-framework-project-logo.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: H2 Database
+  description: A relational database management system written in Java
+  website_url: http://www.h2database.com/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/3105/h2-logo_square_400x400.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/JeekLee/Presets
+  detection_source: Repo Metadata
+- name: Gradle
+  description: A powerful build system for the JVM
+  website_url: https://www.gradle.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Java Build Tools
+  image_url: https://img.stackshare.io/service/975/gradlephant-social-black-bg.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: Apache Camel
+  description: A versatile open source integration framework
+  website_url: https://camel.apache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Application Hosting
+  sub_category: Platform as a Service
+  image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/src/main/resources/application.properties
+  detection_source: src/main/resources/application.properties
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: com.h2database:h2
+  description: H2 Database Engine
+  license: MIT-feh
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.projectlombok:lombok
+  description: 'Spice up your java: Automatic Resource Management'
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-actuator
+  description: Starter for using Spring Boot's Actuator which provides production
+    ready features to help you monitor and manage your application
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-data-jpa
+  description: Starter for using Spring Data JPA with Hibernate
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-data-redis
+  description: Starter for using Redis key-value data store with Spring Data Redis
+    and the Lettuce client
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-security
+  description: Starter for using Spring Security
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-test
+  description: Starter for testing Spring Boot applications with libraries including
+    JUnit
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-validation
+  description: Starter for using Java Bean Validation with Hibernate Validator
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-web
+  description: Starter for building web, including RESTful, applications using Spring
+    MVC
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
+- name: org.springframework.security:spring-security-test
+  description: Spring-security-test
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/JeekLee/Presets/blob/master/build.gradle
+  detection_source: build.gradle
+  last_updated_by: JeekLee
+  last_updated_on: 2024-02-27 04:42:02.000000000 Z
