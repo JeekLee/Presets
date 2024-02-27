@@ -30,6 +30,11 @@ public class MemberRepositoryImpl implements MemberRepository{
     }
 
     @Override
+    public Optional<RefreshToken> findRefreshTokenById(Long id) {
+        return redisRefreshTokenRepository.findById(id.toString());
+    }
+
+    @Override
     public RefreshToken saveRefreshToken(RefreshToken refreshToken) {
         return redisRefreshTokenRepository.save(refreshToken);
     }

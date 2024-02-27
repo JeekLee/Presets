@@ -1,5 +1,6 @@
 package org.example.presets.member.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.presets.core.security.CustomUserDetails;
@@ -24,14 +25,20 @@ public class RestMemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> logIn(@RequestBody @Validated LogInDto logInDto, HttpServletResponse httpServletResponse) {
-        memberService.logIn(logInDto.getNickname(), logInDto.getPassword(), httpServletResponse);
+    public ResponseEntity<?> logIn(@RequestBody @Validated LogInDto logInDto, HttpServletResponse response) {
+        memberService.logIn(logInDto.getNickname(), logInDto.getPassword(), response);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<?> logOut(@AuthenticationPrincipal CustomUserDetails userDetails) {
         memberService.logOut(userDetails.getMemberId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reissuance")
+    public ResponseEntity<?> tokenReissuance(HttpServletRequest request, HttpServletResponse response) {
+        memberService.tokenReissuance(request, response);
         return ResponseEntity.ok().build();
     }
 }

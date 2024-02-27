@@ -9,6 +9,7 @@ public interface MemberRepository {
     Member save(Member member);
     Optional<Member> findById(Long id);
     Optional<Member> findByNickname(String nickname);
+    Optional<RefreshToken> findRefreshTokenById(Long id);
     RefreshToken saveRefreshToken(RefreshToken refreshToken);
     void deleteRefreshToken(Long id);
 }

@@ -17,13 +17,15 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.session.DisableEncodeUrlFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 import java.util.Arrays;
+
+import static org.example.presets.core.security.JwtUtil.HEADER_ACCESS;
+import static org.example.presets.core.security.JwtUtil.HEADER_REFRESH;
 
 @Configuration
 @RequiredArgsConstructor
@@ -55,11 +57,11 @@ public class WebSecurityConfig {
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
-        configuration.addExposedHeader("AccessToken");
-        configuration.addExposedHeader("RefreshToken");
+        configuration.addExposedHeader(HEADER_ACCESS);
+        configuration.addExposedHeader(HEADER_REFRESH);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
@@ -76,12 +78,20 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .exceptionHandling(exceptionHandling
+                        -> exceptionHandling.accessDeniedHandler(accessDeniedHandler())
+                                .authenticationEntryPoint(authenticationEntryPoint())
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/member/login").permitAll())
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/member/signup").permitAll())
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers("/member/login").permitAll()
+                                .requestMatchers("/member/signup").permitAll()
+                                .requestMatchers("/member/reissuance").permitAll()
+                                .anyRequest().authenticated()
+                )
                 .addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtExceptionHandlerFilter(), DisableEncodeUrlFilter.class);
+                .addFilterBefore(new JwtExceptionHandlerFilter(), JwtAuthFilter.class);
 
         return http.build();
     }

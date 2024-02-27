@@ -90,7 +90,7 @@ public class JwtUtil {
                         .parseClaimsJws(resolveToken(request, HEADER_ACCESS)).getBody();
             }
             return Jwts.parserBuilder()
-                    .setSigningKey(accessTokenKey).build()
+                    .setSigningKey(refreshTokenKey).build()
                     .parseClaimsJws(resolveToken(request, HEADER_REFRESH)).getBody();
         } catch (SecurityException | MalformedJwtException e) {
             throw new CustomJwtException(INVALID_JWT);

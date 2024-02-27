@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 import static org.example.presets.core.security.JwtUtil.AUTHORIZATION_KEY;
+import static org.example.presets.core.security.JwtUtil.HEADER_ACCESS;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -37,9 +38,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        String token = jwtUtil.resolveToken(request, "AccessToken");
+        String token = jwtUtil.resolveToken(request, HEADER_ACCESS);
 
-        if (token == null || request.getRequestURI().equals("/api/member/reissuance")){
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
