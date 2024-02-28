@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -73,13 +74,14 @@ public class WebSecurityConfig {
     }
 
     // Set CustomAccessDeniedHandler as AccessDeniedHandler
-    // CustomAccessDeniedHandler throws CustomJwtException(ACCESS_DENIED)
+    // CustomAccessDeniedHandler generate HTTP response based on ExceptionResponse and FilterErrorCode
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
 
-
+    // Set CustomAuthenticationEntryPoint as AuthenticationEntryPoint
+    // CustomAuthenticationEntryPoint generate HTTP response based on ExceptionResponse and FilterErrorCode
     @Bean
     AuthenticationEntryPoint authenticationEntryPoint() {
         return new CustomAuthenticationEntryPoint();
@@ -88,18 +90,26 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Set generated beans(CustomAccessDeniedHandler and CustomAuthenticationEntryPoint) as Exception Handlers
                 .exceptionHandling(exceptionHandling
                         -> exceptionHandling.accessDeniedHandler(accessDeniedHandler())
                                 .authenticationEntryPoint(authenticationEntryPoint())
                 )
+                // Disable CSRF security and session management option because project using stateless token(JWT)
                 .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Adjust CORS configuration source
                 .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize ->
                         authorize
+                                // Permit request for login, signup and reissuance of token
                                 .requestMatchers("/member/login", "/member/signup", "/member/reissuance").permitAll()
+                                // Request ADMIN authority for admin domain
                                 .requestMatchers("/admin/**").hasRole(MemberRole.ADMIN.getCode())
+                                // Request authentication for all APIs
                                 .anyRequest().authenticated()
                 )
+                // Adjust JwtAUthFilter and JwtExceptionHandlerFilter before User
                 .addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new CustomJwtExceptionHandlerFilter(), JwtAuthFilter.class);
 
