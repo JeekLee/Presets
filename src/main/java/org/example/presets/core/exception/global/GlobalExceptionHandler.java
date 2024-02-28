@@ -15,13 +15,6 @@ import static org.example.presets.core.exception.global.GlobalErrorCode.INVALID_
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
     @ExceptionHandler
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(NotFoundException e) {
-        log.error("NotFoundException throwed at " + e.getDomain() + "_"+ e.getLayer() + " : " + e.getGlobalErrorCode());
-        log.error("Cause : " + e.getCauseVariable());
-        return ExceptionResponse.toResponseEntity(e.getGlobalErrorCode());
-    }
-
-    @ExceptionHandler
     public ResponseEntity<ExceptionResponse> handleException(CustomGlobalException e) {
         log.error("NotFoundException throwed at " + e.getDomain() + "_"+ e.getLayer() + " : " + e.getGlobalErrorCode());
         log.error("Cause : " + e.getCauseVariable());

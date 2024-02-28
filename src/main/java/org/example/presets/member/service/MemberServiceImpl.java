@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.presets.core.exception.filter.jwt.CustomJwtException;
 import org.example.presets.core.exception.global.CustomGlobalException;
-import org.example.presets.core.exception.global.NotFoundException;
 import org.example.presets.core.security.jwt.JwtUtil;
 import org.example.presets.member.entity.Member;
 import org.example.presets.member.entity.MemberRole;
@@ -67,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional(readOnly = true)
     public void logIn(String nickname, String password, HttpServletResponse httpServletResponse) {
         Member member = memberRepository.findByNickname(nickname).orElseThrow(
-                () -> new NotFoundException(MEMBER, SERVICE, MEMBER_NOT_FOUND, nickname));
+                () -> new CustomGlobalException(MEMBER, SERVICE, MEMBER_NOT_FOUND, nickname));
 
         if(!passwordEncoder.matches(password, member.getPassword())){
             throw new CustomGlobalException(MEMBER, SERVICE, PASSWORD_INCORRECT, null);
@@ -94,7 +93,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         Member member = memberRepository.findById(memberId).orElseThrow(
-                () -> new NotFoundException(MEMBER, SERVICE, MEMBER_NOT_FOUND, memberId));
+                () -> new CustomGlobalException(MEMBER, SERVICE, MEMBER_NOT_FOUND, memberId));
 
         setNewTokens(response, member);
     }
