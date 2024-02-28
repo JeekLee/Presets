@@ -2,6 +2,7 @@ package org.example.presets.core.exception;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.example.presets.core.exception.global.GlobalErrorCode;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
@@ -13,13 +14,13 @@ public class ExceptionResponse {
     private final Integer customHttpStatus;
     private final String message;
 
-    public static ResponseEntity<ExceptionResponse> toResponseEntity(ErrorCode errorCode) {
+    public static ResponseEntity<ExceptionResponse> toResponseEntity(GlobalErrorCode globalErrorCode) {
         return ResponseEntity
-                .status(errorCode.getHttpStatus())
+                .status(globalErrorCode.getHttpStatus())
                 .body(
                         ExceptionResponse.builder()
-                                .customHttpStatus(errorCode.getCustomHttpStatusCode())
-                                .message(errorCode.getMessage())
+                                .customHttpStatus(globalErrorCode.getCustomHttpStatusCode())
+                                .message(globalErrorCode.getMessage())
                                 .build()
                 );
     }

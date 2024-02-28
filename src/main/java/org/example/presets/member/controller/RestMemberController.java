@@ -32,7 +32,7 @@ public class RestMemberController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logOut(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        memberService.logOut(userDetails.getMemberId());
+        memberService.logOut(userDetails.memberId());
         return ResponseEntity.ok().build();
     }
 

@@ -1,4 +1,4 @@
-package org.example.presets.core.security;
+package org.example.presets.core.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -16,8 +16,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static org.example.presets.core.security.JwtUtil.AUTHORIZATION_KEY;
-import static org.example.presets.core.security.JwtUtil.HEADER_ACCESS;
+import static org.example.presets.core.security.jwt.JwtUtil.AUTHORIZATION_KEY;
+import static org.example.presets.core.security.jwt.JwtUtil.HEADER_ACCESS;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package org.example.presets.core.security;
+package org.example.presets.core.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -6,7 +6,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.presets.core.exception.filter.CustomJwtException;
+import org.example.presets.core.exception.filter.jwt.CustomJwtException;
+import org.example.presets.core.security.CustomUserDetails;
 import org.example.presets.member.entity.MemberRole;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -20,7 +21,8 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
-import static org.example.presets.core.exception.ErrorCode.*;
+import static org.example.presets.core.exception.filter.FilterErrorCode.EXPIRED_JWT;
+import static org.example.presets.core.exception.filter.FilterErrorCode.INVALID_JWT;
 
 @Slf4j
 @Component

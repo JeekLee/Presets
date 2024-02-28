@@ -1,7 +1,5 @@
 package org.example.presets.core.security;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.example.presets.member.entity.MemberRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,12 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Getter
-@RequiredArgsConstructor
-public class CustomUserDetails implements UserDetails {
-    private final Long memberId;
-    private final MemberRole memberRole;
-
+public record CustomUserDetails(Long memberId, MemberRole memberRole) implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(memberRole.getCode());

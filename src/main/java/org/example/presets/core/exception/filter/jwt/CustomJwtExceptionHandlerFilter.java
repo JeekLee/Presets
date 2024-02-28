@@ -1,4 +1,4 @@
-package org.example.presets.core.exception.filter;
+package org.example.presets.core.exception.filter.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -17,7 +17,7 @@ import java.io.OutputStream;
 
 @Slf4j
 @RequiredArgsConstructor
-public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
+public class CustomJwtExceptionHandlerFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain
@@ -32,12 +32,12 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
 
     private void setErrorResponse(HttpServletResponse response, CustomJwtException ex) throws IOException{
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(ex.getErrorCode().getHttpStatus().value());
+        response.setStatus(ex.getFilterErrorCode().getHttpStatus().value());
         try (OutputStream os = response.getOutputStream()) {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(os, ExceptionResponse.builder()
-                    .customHttpStatus(ex.getErrorCode().getCustomHttpStatusCode())
-                    .message(ex.getErrorCode().getMessage())
+                    .customHttpStatus(ex.getFilterErrorCode().getCustomHttpStatusCode())
+                    .message(ex.getFilterErrorCode().getMessage())
                     .build()
             );
             os.flush();

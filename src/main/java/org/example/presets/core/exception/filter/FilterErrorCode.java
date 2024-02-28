@@ -1,4 +1,4 @@
-package org.example.presets.core.exception;
+package org.example.presets.core.exception.filter;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,13 +6,10 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorCode {
-    // Member
-    INVALID_MEMBER_INFO(HttpStatus.BAD_REQUEST, "유효하지 않은 계정정보입니다.", 4000),
-    PASSWORD_INCORRECT(HttpStatus.BAD_REQUEST, "계정 정보가 일치하지 않습니다.", 4000),
-    DUPLICATED_EMAIL(HttpStatus.BAD_REQUEST, "중복된 이메일입니다.", 4090),
-    DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "중복된 닉네임입니다.", 4090),
-    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다.", 4040),
+public enum FilterErrorCode {
+    // Security
+    ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근이 거부되었습니다.", 4030),
+    UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, "인가되지 않은 사용자입니다.", 4010),
 
     // JWT
     ACCESSTOKEN_NOT_EXIST(HttpStatus.UNAUTHORIZED, "Access Token이 존재하지 않습니다.", 4011),
@@ -20,7 +17,6 @@ public enum ErrorCode {
     INVALID_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다.", 4014),
     UNSUPPORTED_JWT(HttpStatus.UNAUTHORIZED, "지원되지 않는 토큰입니다.", 4015),
     EXPIRED_JWT(HttpStatus.UNAUTHORIZED, "만료된 토큰입니다.", 4016),
-    MEMBER_NOT_AUTHORIZED(HttpStatus.FORBIDDEN, "접근 권한이 없는 사용자입니다.", 4031),
     ;
 
     private final HttpStatus httpStatus;
