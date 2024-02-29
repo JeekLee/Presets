@@ -16,6 +16,10 @@ public enum GlobalErrorCode {
 
     // Jwt
     REFRESHTOKEN_NOT_EXIST(HttpStatus.UNAUTHORIZED, "Refresh Token이 존재하지 않습니다.", 4012),
+
+    // Distributed Lock
+    LOCK_NOT_AVAILABLE(HttpStatus.CONFLICT, "Lock 획득에 실패했습니다.", 4091),
+    LOCK_REQUEST_INTERRUPTED(HttpStatus.CONFLICT, "Lock 획득에 실패했습니다.", 5000),
     ;
 
     private final HttpStatus httpStatus;

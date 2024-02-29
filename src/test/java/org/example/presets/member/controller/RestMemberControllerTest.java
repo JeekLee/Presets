@@ -51,7 +51,6 @@ class RestMemberControllerTest {
 
         SignUpDto validRequest = SignUpDto.builder().nickname("JeekLeee").password("1q2w3e4r!@#").build();
 
-
         this.mockMvc
                 .perform(post("/member/signup")
                         .contentType(MediaType.APPLICATION_JSON)

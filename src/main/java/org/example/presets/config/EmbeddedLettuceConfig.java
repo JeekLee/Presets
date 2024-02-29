@@ -9,17 +9,17 @@ import redis.embedded.RedisServer;
 
 @Profile("local")
 @Configuration
-public class LocalRedisConfig {
-    @Value("${spring.data.redis.port}")
-    private Integer redisPort;
+public class EmbeddedLettuceConfig {
+    @Value("${redis.lettuce.port}")
+    private int redisPort;
 
-    @Value("${spring.data.redis.host}")
+    @Value("${redis.lettuce.host}")
     private String redisHost;
 
     private RedisServer redisServer;
 
     @PostConstruct
-    public void startRedis() {
+    public void startLettuceRedis() {
         this.redisServer = RedisServer.builder()
                 .port(redisPort)
                 .setting("maxmemory 128M")
@@ -27,7 +27,7 @@ public class LocalRedisConfig {
         this.redisServer.start();
     }
     @PreDestroy
-    public void stopRedis() {
+    public void stopLettuceRedis() {
         this.redisServer.stop();
     }
 }
