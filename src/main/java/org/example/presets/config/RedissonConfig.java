@@ -17,7 +17,7 @@ public class RedissonConfig {
     public RedissonClient redissonClient() {
         Config config = new Config();
         // Use rediss for SSL
-        config.useSingleServer().setAddress("redis://"+redissonProperties.getHost()+":" + redissonProperties.getPort());
+        config.useSingleServer().setAddress("redis://" + redissonProperties.getHost()+":" + redissonProperties.getPort());
         return Redisson.create(config);
     }
 }
