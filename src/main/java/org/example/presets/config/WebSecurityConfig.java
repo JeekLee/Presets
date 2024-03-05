@@ -47,7 +47,7 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 // Ignore security for H2 Console
-                .requestMatchers(PathRequest.toH2Console())
+//                .requestMatchers(PathRequest.toH2Console())
                 // Ignore security for StaticResources of Spring Boot
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
