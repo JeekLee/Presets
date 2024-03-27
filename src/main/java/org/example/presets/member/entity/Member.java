@@ -1,23 +1,29 @@
 package org.example.presets.member.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
+
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = PROTECTED)
+@Table(name = "member")
 public class Member {
+    @Version
+    private Long version;
+
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column (nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(value = EnumType.STRING)

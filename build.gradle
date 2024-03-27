@@ -1,7 +1,14 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'org.example'
@@ -27,7 +34,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -38,6 +44,9 @@ dependencies {
 
     implementation group: 'org.testcontainers', name: 'testcontainers', version: '1.19.6'
     implementation "org.testcontainers:mysql:1.19.6"
+
+    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+    implementation 'com.querydsl:querydsl-apt:5.0.0'
 
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
@@ -51,6 +60,24 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation group: 'junit', name: 'junit', version: '4.13.2'
     testImplementation 'org.springframework.security:spring-security-test'
+}
+
+def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
 }
 
 tasks.named('test') {

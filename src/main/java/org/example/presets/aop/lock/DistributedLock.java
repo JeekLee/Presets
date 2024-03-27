@@ -1,4 +1,4 @@
-package org.example.presets.aop;
+package org.example.presets.aop.lock;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,6 +11,6 @@ import java.util.concurrent.TimeUnit;
 public @interface DistributedLock {
     String key();                                   // Redis Key of lock
     TimeUnit timeUnit() default TimeUnit.SECONDS;   // Default timeunit: second
-    long waitTime() default 20L;                    // Default timeout of lock request = 20s
+    long waitTime() default 5L;                     // Default timeout of lock request = 20s
     long leaseTime() default 3L;                    // Default timeout of lock holding
 }
