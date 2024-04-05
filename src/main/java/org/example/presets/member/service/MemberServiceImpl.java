@@ -12,6 +12,7 @@ import org.example.presets.member.entity.Member;
 import org.example.presets.member.entity.MemberRole;
 import org.example.presets.member.entity.RefreshToken;
 import org.example.presets.member.repository.MemberRepository;
+import org.example.presets.member.repository.RefreshTokenRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,13 +34,14 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     private void setNewTokens(HttpServletResponse httpServletResponse, Member member) {
         String accessTokenStr = jwtUtil.createAccessToken(member.getId(), member.getMemberRole());
         String refreshTokenStr = jwtUtil.createRefreshToken(member.getId());
 
         RefreshToken refreshToken
-                = memberRepository.saveRefreshToken(
+                = refreshTokenRepository.save(
                         RefreshToken.builder().id(member.getId()).token(refreshTokenStr).build());
 
         httpServletResponse.addHeader(HEADER_ACCESS, accessTokenStr);
@@ -56,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = Member.builder()
                 .nickname(nickname)
                 .password(passwordEncoder.encode(password))
-                .memberRole(MemberRole.NORMAL)
+                .memberRole(MemberRole.ADMIN)
                 .build();
 
         memberRepository.save(member);
@@ -77,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void logOut(Long memberId) {
-        memberRepository.deleteRefreshToken(memberId);
+        refreshTokenRepository.delete(memberId);
     }
 
     @Transactional
@@ -85,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
         Claims refreshTokenInfo = jwtUtil.getLoginMemberInfoFromHttpServletRequest(request, false);
         Long memberId = Long.parseLong(refreshTokenInfo.getSubject());
 
-        RefreshToken refreshToken = memberRepository.findRefreshTokenById(memberId).orElseThrow(
+        RefreshToken refreshToken = refreshTokenRepository.findById(memberId).orElseThrow(
                 () -> new CustomGlobalException(MEMBER, SERVICE, REFRESHTOKEN_NOT_EXIST, "in Redis Server"));
 
         if (!refreshToken.getToken().substring(7).equals(jwtUtil.resolveToken(request, HEADER_REFRESH))) {

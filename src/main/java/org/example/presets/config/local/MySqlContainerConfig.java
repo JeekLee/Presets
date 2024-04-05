@@ -18,7 +18,7 @@ public class MySqlContainerConfig {
 
         MYSQL_CONTAINER.start();
 
-        System.setProperty("spring.datasource.url", MYSQL_CONTAINER.getJdbcUrl());
+        System.setProperty("spring.datasource.url", MYSQL_CONTAINER.getJdbcUrl()+"?rewriteBatchedStatements=true");
         System.setProperty("spring.datasource.username", MYSQL_CONTAINER.getUsername());
         System.setProperty("spring.datasource.password", MYSQL_CONTAINER.getPassword());
         System.setProperty("spring.datasource.driver-class-name", MYSQL_CONTAINER.getJdbcDriverInstance().getClass().getName());

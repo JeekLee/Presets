@@ -1,4 +1,4 @@
-package org.example.presets.member.repository.rds.jpa;
+package org.example.presets.member.repository.mysql.jpa;
 
 import org.example.presets.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

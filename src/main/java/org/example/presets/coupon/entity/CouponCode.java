@@ -12,24 +12,25 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = PROTECTED)
 @Table(name = "coupon_code")
+@NoArgsConstructor(access = PROTECTED)
 public class CouponCode {
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "coupon_id", nullable = false)
+    @JoinColumn(name = "coupon_id", referencedColumnName = "id", nullable = false)
     private Coupon coupon;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "code", nullable = false, unique = true)
     @Size(max=16)
     private String code;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "member_id", referencedColumnName = "id")
+    private Member member = null;
 
     @Builder
     public CouponCode(Long id, Coupon coupon, String code, Member member) {

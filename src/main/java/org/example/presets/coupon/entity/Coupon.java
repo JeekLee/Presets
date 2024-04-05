@@ -18,15 +18,16 @@ public class Coupon {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "name")
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "quantity")
     private Long quantity;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "total_quantity")
     private Long totalQuantity;
 
     @Builder
